@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pSudMLGogKo=",
+  "dgSpecHash": "JUJM8jvX6Vg=",
   "success": true,
-  "projectFilePath": "C:\\Users\\krapi\\OneDrive\\Desktop\\Adresar\\incubis-assignment.csproj",
+  "projectFilePath": "C:\\Users\\krapi\\Desktop\\Adresar\\incubis-assignment.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\krapi\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\krapi\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\6.0.7\\microsoft.aspnetcore.spaproxy.6.0.7.nupkg.sha512",

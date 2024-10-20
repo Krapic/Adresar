@@ -149,6 +149,7 @@ const EditContact: React.FC<EditContactProps> = ({ isOpen, contactId, onDismiss 
                 .filter(email => email.emailAddress.trim() !== '') // Filter out empty email addresses
                 .map(email => {
                     const emailPayload = {
+                        id: email.id,
                         contactId: Number(contactId), // Ensure contactId is a number
                         emailAddress: email.emailAddress,
                         category: email.category
@@ -168,6 +169,7 @@ const EditContact: React.FC<EditContactProps> = ({ isOpen, contactId, onDismiss 
                 .filter(phone => phone.phoneNumber.trim() !== '') // Filter out empty phone numbers
                 .map(phone => {
                     const phonePayload = {
+                        id: phone.id,
                         contactId: Number(contactId), // Ensure contactId is a number
                         phoneNumber: phone.phoneNumber,
                         category: phone.category

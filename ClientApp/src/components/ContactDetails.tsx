@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text } from '@fluentui/react';
+import { Text, Stack, Separator, Icon } from '@fluentui/react';
 import { initializeIcons } from '@fluentui/font-icons-mdl2';
 import { Panel, PanelType } from '@fluentui/react/lib/Panel';
 import axios from 'axios';
@@ -53,30 +53,59 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({ isOpen, contactId, onDi
 
     return (
         <div>
-            <Panel isOpen={isOpen} onDismiss={onDismiss} headerText="Podaci o kontaktu"
-                styles={{ headerText: { fontSize: '40px', fontWeight: 'bold' } }} closeButtonAriaLabel='Zatvori'
-                isFooterAtBottom={true} isLightDismiss={true} type={PanelType.customNear} customWidth="600px" isBlocking={true} >
+            <Panel
+                isOpen={isOpen}
+                onDismiss={onDismiss}
+                headerText="Podaci o kontaktu"
+                styles={{ headerText: { fontSize: '40px', fontWeight: 'bold' } }}
+                closeButtonAriaLabel="Zatvori"
+                isFooterAtBottom={true}
+                isLightDismiss={true}
+                type={PanelType.customNear}
+                customWidth="600px"
+                isBlocking={true}
+            >
                 {contact && (
-                    <>
-                        <Text variant="xxLarge" block>Ime i prezime: {contact.name} {contact.surname}</Text>
-                        <Text variant="xxLarge" block>Adresa: {contact.address}</Text>
-                        <Text variant="xxLarge" block>Email adrese:</Text>
-                        <ul>
-                            {contact.emails.map(email => (
-                                <li key={email.id} style={{ fontSize: '22px' }}>
-                                    {email.emailAddress} ({email.category})
-                                </li>
+                    <Stack tokens={{ childrenGap: 20 }} styles={{ root: { padding: '20px' } }}>
+                        <Text variant="xxLarge" block>
+                            <Icon iconName="Contact" styles={{ root: { marginRight: '8px' } }} />
+                            {contact.name} {contact.surname}
+                        </Text>
+                        <Text variant="large" block>
+                            <Icon iconName="Home" styles={{ root: { marginRight: '8px' } }} />
+                            {contact.address}
+                        </Text>
+                        <Separator />
+                        <Text variant="xLarge" block>
+                            Email adrese:
+                        </Text>
+                        <Stack tokens={{ childrenGap: 10 }}>
+                            {contact.emails.map((email) => (
+                                <Stack horizontal key={email.id} tokens={{ childrenGap: 10 }} verticalAlign="center">
+                                    <Icon iconName="Mail" styles={{ root: { fontSize: '22px' } }} />
+                                    <Text variant="large">{email.emailAddress}</Text>
+                                    <Text variant="smallPlus" styles={{ root: { color: '#888' } }}>
+                                        ({email.category})
+                                    </Text>
+                                </Stack>
                             ))}
-                        </ul>
-                        <Text variant="xxLarge" block>Brojevi telefona:</Text>
-                        <ul>
-                            {contact.phones.map(phone => (
-                                <li key={phone.id} style={{ fontSize: '22px' }}>
-                                    {phone.phoneNumber} ({phone.category})
-                                </li>
+                        </Stack>
+                        <Separator />
+                        <Text variant="xLarge" block>
+                            Brojevi telefona:
+                        </Text>
+                        <Stack tokens={{ childrenGap: 10 }}>
+                            {contact.phones.map((phone) => (
+                                <Stack horizontal key={phone.id} tokens={{ childrenGap: 10 }} verticalAlign="center">
+                                    <Icon iconName="Phone" styles={{ root: { fontSize: '22px' } }} />
+                                    <Text variant="large">{phone.phoneNumber}</Text>
+                                    <Text variant="smallPlus" styles={{ root: { color: '#888' } }}>
+                                        ({phone.category})
+                                    </Text>
+                                </Stack>
                             ))}
-                        </ul>
-                    </>
+                        </Stack>
+                    </Stack>
                 )}
             </Panel>
         </div>

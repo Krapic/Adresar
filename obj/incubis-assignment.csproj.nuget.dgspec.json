@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\krapi\\OneDrive\\Desktop\\Adresar\\incubis-assignment.csproj": {}
+    "C:\\Users\\krapi\\Desktop\\Adresar\\incubis-assignment.csproj": {}
   },
   "projects": {
-    "C:\\Users\\krapi\\OneDrive\\Desktop\\Adresar\\incubis-assignment.csproj": {
+    "C:\\Users\\krapi\\Desktop\\Adresar\\incubis-assignment.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krapi\\OneDrive\\Desktop\\Adresar\\incubis-assignment.csproj",
+        "projectUniqueName": "C:\\Users\\krapi\\Desktop\\Adresar\\incubis-assignment.csproj",
         "projectName": "incubis-assignment",
-        "projectPath": "C:\\Users\\krapi\\OneDrive\\Desktop\\Adresar\\incubis-assignment.csproj",
+        "projectPath": "C:\\Users\\krapi\\Desktop\\Adresar\\incubis-assignment.csproj",
         "packagesPath": "C:\\Users\\krapi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krapi\\OneDrive\\Desktop\\Adresar\\obj\\",
+        "outputPath": "C:\\Users\\krapi\\Desktop\\Adresar\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
