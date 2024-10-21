@@ -163,7 +163,7 @@ const CreateContact: React.FC<CreateContactProps> = ({ isOpen, contactId, onDism
         <div>
             <Panel isOpen={isOpen} onDismiss={handleDismissPanel} headerText="Dodaj novi kontakt"
                 styles={{ headerText: { fontSize: '40px', fontWeight: 'bold' } }} closeButtonAriaLabel='Zatvori'
-                isFooterAtBottom={true} isLightDismiss={true} type={PanelType.customNear} customWidth="600px" isBlocking={true}>
+                isFooterAtBottom={true} isLightDismiss={true} type={PanelType.customNear} customWidth="600px" isBlocking={false}>
                 <Stack tokens={{ childrenGap: 15 }}>
                     <TextField label="Ime" value={name} onChange={(e, newValue) => setName(newValue || '')} />
                     <TextField label="Prezime" value={surname} onChange={(e, newValue) => setSurname(newValue || '')} />

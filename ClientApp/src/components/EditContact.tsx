@@ -204,7 +204,7 @@ const EditContact: React.FC<EditContactProps> = ({ isOpen, contactId, onDismiss 
         <div>
             <Panel isOpen={isOpen} onDismiss={handleDismissPanel} headerText="Uredi kontakt"
                 styles={{ headerText: { fontSize: '40px', fontWeight: 'bold' } }} closeButtonAriaLabel='Zatvori'
-                isFooterAtBottom={true} isLightDismiss={true} type={PanelType.customNear} customWidth="600px" isBlocking={true}
+                isFooterAtBottom={true} isLightDismiss={true} type={PanelType.customNear} customWidth="600px" isBlocking={false}
                 headerClassName="panel-header">
                 <Stack tokens={{ childrenGap: 15 }} styles={{ root: { padding: '20px' } }}>
                     <TextField label="Ime" value={name} onChange={(e, newValue) => setName(newValue || '')} />
@@ -255,7 +255,7 @@ const EditContact: React.FC<EditContactProps> = ({ isOpen, contactId, onDismiss 
                 hidden={!isAddCategoryDialogVisible}
                 onDismiss={hideAddCategoryDialog}
                 dialogContentProps={{ type: DialogType.normal, title: 'Dodaj novu kategoriju' }}
-                modalProps={{ isBlocking: true }}
+                modalProps={{ isBlocking: false }}
             >
                 <Stack tokens={{ childrenGap: 15 }} styles={{ root: { padding: '20px' } }}>
                     <TextField
@@ -267,6 +267,7 @@ const EditContact: React.FC<EditContactProps> = ({ isOpen, contactId, onDismiss 
                     <PrimaryButton text="Dodaj kategoriju" onClick={handleAddCategory} styles={{ root: { width: '100%' } }} />
                 </Stack>
             </Dialog>
+
         </div>
     );
 };

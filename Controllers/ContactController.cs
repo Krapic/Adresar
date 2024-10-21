@@ -100,7 +100,12 @@ namespace incubis_assignment.Controllers
         [HttpPut("Email/{id}")]
         public async Task<IActionResult> PutEmail(int id, [FromBody] Email email)
         {
-            if (id != email.Id) return BadRequest();
+            if (id != email.Id) return BadRequest("Email ID mismatch.");
+            if (email == null || string.IsNullOrEmpty(email.EmailAddress) || string.IsNullOrEmpty(email.Category))
+            {
+                return BadRequest("Invalid email data.");
+            }
+
             _context.Entry(email).State = EntityState.Modified;
             try
             {
@@ -117,7 +122,12 @@ namespace incubis_assignment.Controllers
         [HttpPut("Phone/{id}")]
         public async Task<IActionResult> PutPhone(int id, [FromBody] Phone phone)
         {
-            if (id != phone.Id) return BadRequest();
+            if (id != phone.Id) return BadRequest("Phone ID mismatch.");
+            if (phone == null || string.IsNullOrEmpty(phone.PhoneNumber) || string.IsNullOrEmpty(phone.Category))
+            {
+                return BadRequest("Invalid phone data.");
+            }
+
             _context.Entry(phone).State = EntityState.Modified;
             try
             {

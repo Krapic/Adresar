@@ -79,73 +79,76 @@ const ContactList: React.FC = () => {
     }, {});
 
     return (
-        <Stack
-            styles={{
-                root: {
-                    padding: '20px',
-                    height: '100vh',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }
-            }}
-        >
-            <Text variant="xxLarge" styles={{ root: { fontWeight: 700, marginBottom: '10px' } }}>
-                Moji kontakti
-            </Text>
-            <PrimaryButton text="Dodaj novi kontakt" style={{ width: '800px', marginBottom: '10px', fontSize: '20px' }} onClick={openCreateContactPanel} />
-            {Object.keys(groupedContacts).sort().map(letter => (
-                <div key={letter}>
-                    <Text variant="xLarge">{letter}</Text>
-                    <List
-                        items={groupedContacts[letter]}
-                        onRenderCell={(item) => (
-                            item ? (
-                                <Stack
-                                    horizontal
-                                    verticalAlign="center"
-                                    styles={{
-                                        root: {
-                                            margin: '15px 0',
-                                            padding: '25px',
-                                            border: '3px solid #f3f2f1',
-                                            borderRadius: '4px',
-                                            backgroundColor: '#fafafa',
-                                            width: '800px',
-                                            maxWidth: '800px'
-                                        }
-                                    }}
-                                >
-                                    <Text variant="xxLarge" styles={{ root: { fontWeight: 600, flex: 1 } }} onClick={() => navigate(`/${item.id}`)}>
-                                        {item.name} {item.surname}
-                                    </Text>
-                                    <PrimaryButton text="Uredi" style={{ marginLeft: '12px' }} onClick={() => openEditContactPanel(item.id.toString())} />
-                                    <DefaultButton text="Obriši" style={{ marginLeft: '12px' }} onClick={() => handleDelete(item.id)} />
-                                </Stack>
-                            ) : null
-                        )}
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', padding: '20px' }}>
+            <Stack
+                styles={{
+                    root: {
+                        flexGrow: 1,
+                        overflowY: 'auto',  // Enable scrolling here only
+                        justifyContent: 'flex-start',
+                        alignItems: 'center',
+                        marginBottom: '20px', // Add margin to the bottom
+                    }
+                }}
+            >
+                <Text variant="xxLarge" styles={{ root: { fontWeight: 700, marginBottom: '10px', marginTop: '20px' } }}>
+                    Moji kontakti
+                </Text>
+                <PrimaryButton text="Dodaj novi kontakt" style={{ width: '800px', marginBottom: '20px', fontSize: '20px' }} onClick={openCreateContactPanel} />
+                {Object.keys(groupedContacts).sort().map(letter => (
+                    <div key={letter} style={{ marginBottom: '20px' }}>
+                        <Text variant="xLarge">{letter}</Text>
+                        <List
+                            items={groupedContacts[letter]}
+                            onRenderCell={(item) => (
+                                item ? (
+                                    <Stack
+                                        horizontal
+                                        verticalAlign="center"
+                                        styles={{
+                                            root: {
+                                                margin: '15px 0',
+                                                padding: '25px',
+                                                border: '3px solid #f3f2f1',
+                                                borderRadius: '4px',
+                                                backgroundColor: '#fafafa',
+                                                width: '800px',
+                                                maxWidth: '800px',
+                                            }
+                                        }}
+                                    >
+                                        <Text variant="xxLarge" styles={{ root: { fontWeight: 600, flex: 1 } }} onClick={() => navigate(`/${item.id}`)}>
+                                            {item.name} {item.surname}
+                                        </Text>
+                                        <PrimaryButton text="Uredi" style={{ marginLeft: '12px' }} onClick={() => openEditContactPanel(item.id.toString())} />
+                                        <DefaultButton text="Obriši" style={{ marginLeft: '12px' }} onClick={() => handleDelete(item.id)} />
+                                    </Stack>
+                                ) : null
+                            )}
+                        />
+                    </div>
+                ))}
+                <CreateContact
+                    isOpen={isCreateContactPanelOpen}
+                    contactId=""
+                    onDismiss={closeCreateContactPanel}
+                />
+                {selectedContactId && (
+                    <ContactDetails
+                        isOpen={!!selectedContactId}
+                        contactId={selectedContactId}
+                        onDismiss={() => navigate('/')}
                     />
-                </div>
-            ))}
-            <CreateContact
-                isOpen={isCreateContactPanelOpen}
-                contactId=""
-                onDismiss={closeCreateContactPanel}
-            />
-            {selectedContactId && (
-                <ContactDetails
-                    isOpen={!!selectedContactId}
-                    contactId={selectedContactId}
-                    onDismiss={() => navigate('/')}
-                />
-            )}
-            {selectedContactId && (
-                <EditContact
-                    isOpen={isEditContactPanelOpen}
-                    contactId={selectedContactId}
-                    onDismiss={closeEditContactPanel}
-                />
-            )}
-        </Stack>
+                )}
+                {selectedContactId && (
+                    <EditContact
+                        isOpen={isEditContactPanelOpen}
+                        contactId={selectedContactId}
+                        onDismiss={closeEditContactPanel}
+                    />
+                )}
+            </Stack>
+        </div>
     );
 };
 
