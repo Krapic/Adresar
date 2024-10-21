@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { initializeIcons } from '@fluentui/react/lib/Icons';
 import { Panel, PanelType } from '@fluentui/react/lib/Panel';
-import { PrimaryButton, Stack, TextField, Dropdown, Dialog, DialogType } from '@fluentui/react';
+import { PrimaryButton, Stack, TextField, Dropdown, Dialog, DialogType, IconButton } from '@fluentui/react';
 import { useBoolean } from '@fluentui/react-hooks';
 
 initializeIcons();
@@ -135,7 +135,7 @@ const EditContact: React.FC<EditContactProps> = ({ isOpen, contactId, onDismiss 
 
         try {
             const contactPayload = {
-                id: Number(contactId), // Ensure contactId is a number
+                id: Number(contactId),
                 name,
                 surname,
                 address
@@ -146,41 +146,37 @@ const EditContact: React.FC<EditContactProps> = ({ isOpen, contactId, onDismiss 
             await axios.put(`/api/Contact/${contactId}`, contactPayload);
 
             const emailPromises = emails
-                .filter(email => email.emailAddress.trim() !== '') // Filter out empty email addresses
+                .filter(email => email.emailAddress.trim() !== '')
                 .map(email => {
                     const emailPayload = {
-                        id: email.id,
-                        contactId: Number(contactId), // Ensure contactId is a number
+                        id: email.id < 0 ? 0 : email.id,
+                        contactId: Number(contactId),
                         emailAddress: email.emailAddress,
                         category: email.category
                     };
 
                     console.log('Email Payload:', emailPayload);
                     if (email.id < 0) {
-                        // New email, use POST
                         return axios.post(`/api/Contact/Email`, emailPayload);
                     } else {
-                        // Existing email, use PUT
                         return axios.put(`/api/Contact/Email/${email.id}`, emailPayload);
                     }
                 });
 
             const phonePromises = phones
-                .filter(phone => phone.phoneNumber.trim() !== '') // Filter out empty phone numbers
+                .filter(phone => phone.phoneNumber.trim() !== '')
                 .map(phone => {
                     const phonePayload = {
-                        id: phone.id,
-                        contactId: Number(contactId), // Ensure contactId is a number
+                        id: phone.id < 0 ? 0 : phone.id,
+                        contactId: Number(contactId),
                         phoneNumber: phone.phoneNumber,
                         category: phone.category
                     };
 
                     console.log('Phone Payload:', phonePayload);
                     if (phone.id < 0) {
-                        // New phone, use POST
                         return axios.post(`/api/Contact/Phone`, phonePayload);
                     } else {
-                        // Existing phone, use PUT
                         return axios.put(`/api/Contact/Phone/${phone.id}`, phonePayload);
                     }
                 });
@@ -225,7 +221,7 @@ const EditContact: React.FC<EditContactProps> = ({ isOpen, contactId, onDismiss 
                                 onChange={(e, option) => handleCategoryChange(index, option?.key as string, 'email')}
                                 styles={{ dropdown: { flexGrow: 1 } }}
                             />
-                            <PrimaryButton text="Obriši" onClick={() => handleDeleteEmail(index)} styles={{ root: { flexGrow: 0 } }} />
+                            <IconButton iconProps={{ iconName: 'Delete' }} onClick={() => handleDeleteEmail(index)} styles={{ root: { flexGrow: 0 } }} />
                         </Stack>
                     ))}
                     <PrimaryButton text="Dodaj email" onClick={handleAddEmail} styles={{ root: { width: '100%' } }} />
@@ -244,7 +240,7 @@ const EditContact: React.FC<EditContactProps> = ({ isOpen, contactId, onDismiss 
                                 onChange={(e, option) => handleCategoryChange(index, option?.key as string, 'phone')}
                                 styles={{ dropdown: { flexGrow: 1 } }}
                             />
-                            <PrimaryButton text="Obriši" onClick={() => handleDeletePhone(index)} styles={{ root: { flexGrow: 0 } }} />
+                            <IconButton iconProps={{ iconName: 'Delete' }} onClick={() => handleDeletePhone(index)} styles={{ root: { flexGrow: 0 } }} />
                         </Stack>
                     ))}
                     <PrimaryButton text="Dodaj telefon" onClick={handleAddPhone} styles={{ root: { width: '100%' } }} />
@@ -267,7 +263,6 @@ const EditContact: React.FC<EditContactProps> = ({ isOpen, contactId, onDismiss 
                     <PrimaryButton text="Dodaj kategoriju" onClick={handleAddCategory} styles={{ root: { width: '100%' } }} />
                 </Stack>
             </Dialog>
-
         </div>
     );
 };

@@ -84,10 +84,10 @@ const ContactList: React.FC = () => {
                 styles={{
                     root: {
                         flexGrow: 1,
-                        overflowY: 'auto',  // Enable scrolling here only
+                        overflowY: 'auto',
                         justifyContent: 'flex-start',
                         alignItems: 'center',
-                        marginBottom: '20px', // Add margin to the bottom
+                        marginBottom: '20px',
                     }
                 }}
             >
@@ -114,6 +114,14 @@ const ContactList: React.FC = () => {
                                                 backgroundColor: '#fafafa',
                                                 width: '800px',
                                                 maxWidth: '800px',
+                                                transition: 'background-color 0.3s, border-color 0.3s',
+                                                selectors: {
+                                                    ':hover': {
+                                                        backgroundColor: '#eaeaea',
+                                                        borderColor: '#0078d4',
+                                                        cursor: 'pointer',
+                                                    },
+                                                },
                                             }
                                         }}
                                     >

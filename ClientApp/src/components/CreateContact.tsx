@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Text, TextField, Stack, Dropdown, PrimaryButton, Panel, PanelType, Dialog, DialogType } from '@fluentui/react';
+import { Text, TextField, Stack, Dropdown, PrimaryButton, Panel, PanelType, Dialog, DialogType, IconButton } from '@fluentui/react';
 import { initializeIcons } from '@fluentui/font-icons-mdl2';
 import { useBoolean } from '@fluentui/react-hooks';
 import axios from 'axios';
@@ -88,6 +88,16 @@ const CreateContact: React.FC<CreateContactProps> = ({ isOpen, contactId, onDism
         }
     };
 
+    const handleDeleteEmail = (index: number) => {
+        const newEmails = emails.filter((_, i) => i !== index);
+        setEmails(newEmails);
+    };
+
+    const handleDeletePhone = (index: number) => {
+        const newPhones = phones.filter((_, i) => i !== index);
+        setPhones(newPhones);
+    };
+
     const handleSubmit = async () => {
         if (!name || !surname || !address) {
             alert("Molimo unesite ime, prezime i adresu kontakta.");
@@ -170,35 +180,41 @@ const CreateContact: React.FC<CreateContactProps> = ({ isOpen, contactId, onDism
                     <TextField label="Adresa" value={address} onChange={(e, newValue) => setAddress(newValue || '')} />
                     <Text variant="large">Email adrese:</Text>
                     {emails.map((email, index) => (
-                        <Stack key={email.id} tokens={{ childrenGap: 10 }}>
+                        <Stack key={email.id} tokens={{ childrenGap: 10 }} horizontal verticalAlign="center">
                             <TextField
                                 value={email.emailAddress}
                                 onChange={(e, newValue) => handleEmailChange(index, newValue || '')}
                                 placeholder="Email adresa"
+                                styles={{ root: { width: '400px' } }}
                             />
                             <Dropdown
                                 placeholder="Odaberite kategoriju"
                                 options={[...categories.map(category => ({ key: category, text: category })), { key: 'add_new_category', text: 'Dodaj novu kategoriju...' }]}
                                 selectedKey={email.category}
                                 onChange={(e, option) => handleCategoryChange(index, option?.key as string, 'email')}
+                                styles={{ dropdown: { width: '200px' } }}
                             />
+                            <IconButton iconProps={{ iconName: 'Delete' }} onClick={() => handleDeleteEmail(index)} />
                         </Stack>
                     ))}
                     <PrimaryButton text="Dodaj email" onClick={handleAddEmail} />
                     <Text variant="large">Brojevi telefona:</Text>
                     {phones.map((phone, index) => (
-                        <Stack key={phone.id} tokens={{ childrenGap: 10 }}>
+                        <Stack key={phone.id} tokens={{ childrenGap: 10 }} horizontal verticalAlign="center">
                             <TextField
                                 value={phone.phoneNumber}
                                 onChange={(e, newValue) => handlePhoneChange(index, newValue || '')}
                                 placeholder="Broj telefona"
+                                styles={{ root: { width: '400px' } }}
                             />
                             <Dropdown
                                 placeholder="Odaberite kategoriju"
                                 options={[...categories.map(category => ({ key: category, text: category })), { key: 'add_new_category', text: 'Dodaj novu kategoriju...' }]}
                                 selectedKey={phone.category}
                                 onChange={(e, option) => handleCategoryChange(index, option?.key as string, 'phone')}
+                                styles={{ dropdown: { width: '200px' } }}
                             />
+                            <IconButton iconProps={{ iconName: 'Delete' }} onClick={() => handleDeletePhone(index)} />
                         </Stack>
                     ))}
                     <PrimaryButton text="Dodaj telefon" onClick={handleAddPhone} />
