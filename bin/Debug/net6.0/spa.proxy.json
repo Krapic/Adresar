@@ -2,7 +2,7 @@
 "SpaProxyServer": {
 "ServerUrl": "https://localhost:44418",
 "LaunchCommand": "npm start",
-"WorkingDirectory": "C:\\Users\\krapi\\OneDrive\\Desktop\\zadatak-praksa-frane-krapic\\ClientApp\\",
+"WorkingDirectory": "C:\\Users\\krapi\\Desktop\\Adresar\\ClientApp\\",
 "MaxTimeoutInSeconds": "120"
 }
 }

@@ -11,7 +11,7 @@ namespace incubis_assignment.Models
         [ForeignKey(nameof(Contact))]
         public int ContactId { get; set; }
         public string EmailAddress { get; set; }
-        public string Category {  get; set; }
+        public string Category { get; set; }
         [JsonIgnore]
         public Contact Contact { get; set; }
     }
