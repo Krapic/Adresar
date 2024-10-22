@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("incubis-assignment")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6850fdf841dd2386ef79465b69d21e6a9a4db9e7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a75e1165170137e10546a1c9efc666aacb1e1555")]
 [assembly: System.Reflection.AssemblyProductAttribute("incubis-assignment")]
 [assembly: System.Reflection.AssemblyTitleAttribute("incubis-assignment")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
