@@ -54,7 +54,7 @@ namespace incubis_assignment.Controllers
         public async Task<ActionResult<Email>> PostEmail([FromBody] Email email)
         {
 
-            if (email == null || string.IsNullOrEmpty(email.EmailAddress) || string.IsNullOrEmpty(email.Category))
+            if (email == null || string.IsNullOrEmpty(email.EmailAddress))
             {
                 return BadRequest("Invalid email data.");
             }
@@ -69,7 +69,7 @@ namespace incubis_assignment.Controllers
         public async Task<ActionResult<Phone>> PostPhone([FromBody] Phone phone)
         {
 
-            if (phone == null || string.IsNullOrEmpty(phone.PhoneNumber) || string.IsNullOrEmpty(phone.Category))
+            if (phone == null || string.IsNullOrEmpty(phone.PhoneNumber))
             {
                 return BadRequest("Invalid phone data.");
             }
@@ -101,7 +101,7 @@ namespace incubis_assignment.Controllers
         public async Task<IActionResult> PutEmail(int id, [FromBody] Email email)
         {
             if (id != email.Id) return BadRequest("Email ID mismatch.");
-            if (email == null || string.IsNullOrEmpty(email.EmailAddress) || string.IsNullOrEmpty(email.Category))
+            if (email == null || string.IsNullOrEmpty(email.EmailAddress))
             {
                 return BadRequest("Invalid email data.");
             }
@@ -123,7 +123,7 @@ namespace incubis_assignment.Controllers
         public async Task<IActionResult> PutPhone(int id, [FromBody] Phone phone)
         {
             if (id != phone.Id) return BadRequest("Phone ID mismatch.");
-            if (phone == null || string.IsNullOrEmpty(phone.PhoneNumber) || string.IsNullOrEmpty(phone.Category))
+            if (phone == null || string.IsNullOrEmpty(phone.PhoneNumber))
             {
                 return BadRequest("Invalid phone data.");
             }
@@ -169,6 +169,25 @@ namespace incubis_assignment.Controllers
             _context.Phones.Remove(phone);
             await _context.SaveChangesAsync();
             return NoContent();
+        }
+
+        [HttpGet("Categories")]
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
+        {
+            return await _context.Categories.ToListAsync();
+        }
+
+        [HttpPost("Category")]
+        public async Task<ActionResult<Category>> PostCategory([FromBody] Category category)
+        {
+            if (category == null || string.IsNullOrWhiteSpace(category.CategoryName))
+            {
+                return BadRequest("Category name is required.");
+            }
+
+            _context.Categories.Add(category);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetCategories), new { id = category.Id }, category);
         }
 
         private bool ContactExists(int id)

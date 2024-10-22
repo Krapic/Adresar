@@ -22,6 +22,11 @@ interface Phone {
     category: string;
 }
 
+interface Category {
+    id: number;
+    categoryName: string;
+}
+
 interface EditContactProps {
     isOpen: boolean;
     contactId: string;
@@ -35,7 +40,7 @@ const EditContact: React.FC<EditContactProps> = ({ isOpen, contactId, onDismiss 
     const [address, setAddress] = useState('');
     const [emails, setEmails] = useState<Email[]>([]);
     const [phones, setPhones] = useState<Phone[]>([]);
-    const [categories, setCategories] = useState<string[]>(['Kuća', 'Posao', 'Osobno', 'Sport', 'Banka', 'Fast Food', 'Drugo']);
+    const [categories, setCategories] = useState<Category[]>([]);
     const [newCategory, setNewCategory] = useState('');
     const [isAddCategoryDialogVisible, { setTrue: showAddCategoryDialog, setFalse: hideAddCategoryDialog }] = useBoolean(false);
 
@@ -54,7 +59,17 @@ const EditContact: React.FC<EditContactProps> = ({ isOpen, contactId, onDismiss 
             }
         };
 
+        const fetchCategories = async () => {
+            try {
+                const response = await axios.get('/api/Contact/Categories');
+                setCategories(response.data);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+
         fetchContact();
+        fetchCategories();
     }, [contactId]);
 
     const handleDismissPanel = () => {
@@ -99,11 +114,16 @@ const EditContact: React.FC<EditContactProps> = ({ isOpen, contactId, onDismiss 
         }
     };
 
-    const handleAddCategory = () => {
-        if (newCategory && !categories.includes(newCategory)) {
-            setCategories([...categories, newCategory]);
-            setNewCategory('');
-            hideAddCategoryDialog();
+    const handleAddCategory = async () => {
+        if (newCategory && !categories.some(category => category.categoryName === newCategory)) {
+            try {
+                const response = await axios.post('/api/Contact/Category', { categoryName: newCategory });
+                setCategories([...categories, response.data]);
+                setNewCategory('');
+                hideAddCategoryDialog();
+            } catch (error) {
+                console.error('Error adding category:', error);
+            }
         }
     };
 
@@ -196,6 +216,11 @@ const EditContact: React.FC<EditContactProps> = ({ isOpen, contactId, onDismiss 
         window.location.reload();
     };
 
+    const categoryOptions = categories.map(category => ({
+        key: category.categoryName,
+        text: category.categoryName
+    }));
+
     return (
         <div>
             <Panel isOpen={isOpen} onDismiss={handleDismissPanel} headerText="Uredi kontakt"
@@ -216,7 +241,7 @@ const EditContact: React.FC<EditContactProps> = ({ isOpen, contactId, onDismiss 
                             />
                             <Dropdown
                                 placeholder="Odaberite kategoriju"
-                                options={[...categories.map(category => ({ key: category, text: category })), { key: 'add_new_category', text: 'Dodaj novu kategoriju...' }]}
+                                options={[...categoryOptions, { key: 'add_new_category', text: 'Dodaj novu kategoriju...' }]}
                                 selectedKey={email.category}
                                 onChange={(e, option) => handleCategoryChange(index, option?.key as string, 'email')}
                                 styles={{ dropdown: { flexGrow: 1 } }}
@@ -235,7 +260,7 @@ const EditContact: React.FC<EditContactProps> = ({ isOpen, contactId, onDismiss 
                             />
                             <Dropdown
                                 placeholder="Odaberite kategoriju"
-                                options={[...categories.map(category => ({ key: category, text: category })), { key: 'add_new_category', text: 'Dodaj novu kategoriju...' }]}
+                                options={[...categoryOptions, { key: 'add_new_category', text: 'Dodaj novu kategoriju...' }]}
                                 selectedKey={phone.category}
                                 onChange={(e, option) => handleCategoryChange(index, option?.key as string, 'phone')}
                                 styles={{ dropdown: { flexGrow: 1 } }}
