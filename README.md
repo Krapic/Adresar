@@ -1,30 +1,37 @@
-# Adresar
+# Address Book  
 
-Jednostavni adresar koristeći [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-5.0&tabs=visual-studio-code) i [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/) na backendu i [React](https://reactjs.org/) s [TypeScript](https://www.typescriptlang.org/)-om i [Fluent UI](https://developer.microsoft.com/en-us/fluentui#/) na frontendu.  
+A simple address book using [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-5.0&tabs=visual-studio-code) and [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/) for the backend, and [React](https://reactjs.org/) with [TypeScript](https://www.typescriptlang.org/) and [Fluent UI](https://developer.microsoft.com/en-us/fluentui#/) for the frontend.  
 
-## Setup
+## Setup  
+After cloning the repository, run the `npm install` command in the `ClientApp` folder. The project can then be launched through your preferred IDE.  
 
-Nakon što se repozitorij klonira, potrebno je pokrenuti naredbu `npm install` u folderu `ClientApp`. Nakon toga se projekt može pokrenuti kroz odgovarajući IDE.
+## Repository Description  
+This is a simple address book implementation. Users can:  
+- Add new contacts (people)  
+- Edit and delete existing contacts  
+- Assign multiple email addresses and phone numbers to each contact  
+- Categorize emails/phone numbers (e.g., **Home**, **Work**). Missing categories can be added as needed  
+- No security, user authentication, or similar features are implemented  
 
-## Opis repozitorija
+The homepage displays contacts grouped by the first letter of their names. Clicking a contact opens a "side panel" showing detailed information. This functionality uses routing:  
+- Navigating to `/` shows the contact list  
+- Navigating to `/1` displays the contact list with a side panel showing details for contact ID 1  
 
-Napravljen je jednostavan adresar. Korisnik može dodati novi kontakt (osobu), urediti i obrisati postojeći. Svakom kontaktu je se može dodijeliti ime i prezime, više email adresa i više telefonskih brojeva. Svakoj email adresi i svakom telefonskom broju može se dodijeliti kategorija (npr. **Home**, **Work**, itd.). Ako nema željene kategorije, po potrebi moguće ju je i dodati. U aplikaciji nije  implementiran nikakav security, korisnik ili tome slično.
+## Useful Links  
+- [EF Core - Defining and Configuring a Model](https://docs.microsoft.com/en-us/ef/core/modeling/)  
+- [EF Core - Loading Data](https://docs.microsoft.com/en-us/ef/core/querying/)  
+- [EF Core - Loading Related Data](https://docs.microsoft.com/en-us/ef/core/querying/related-data/eager)  
+- [EF Core - Saving Data](https://docs.microsoft.com/en-us/ef/core/saving/basic)  
+- [EF Core - Saving Related Data](https://docs.microsoft.com/en-us/ef/core/saving/related-data)  
+- [EF Core - Deleting Data](https://docs.microsoft.com/en-us/ef/core/saving/cascade-delete)  
+- [Fluent UI Grouped List](https://developer.microsoft.com/en-us/fluentui#/controls/web/groupedlist)  
+- [Fluent UI Panel](https://developer.microsoft.com/en-us/fluentui#/controls/web/panel)  
+- [React Router](https://reactrouter.com/web/guides/quick-start)  
 
-Na početnoj stranici se prikazuje lista kontakata grupiranih po prvom slovu imena. Kada korisnik klikne na kontakta, njegovi detalji se  prikazuju na "side-panelu". Ta funkcionalnost je implementirana pomoću ruta. Dakle, kada korisnik navigira na `/`, vidi listu kontakata, a kada navigira na `/1`, vidi listu kontakata preko koje je "side-panel" gdje se vide detalji kontakta s ID-em 1.
+## Important Notes  
+- Frontend API calls are directed to `https://localhost:7037`  
+- All API endpoint paths are defined in the `context` variable within `ClientApp/src/setupProxy.js`
 
-## Korisni linkovi
-
-- [EF Core - Defining and Configuring a Model](https://docs.microsoft.com/en-us/ef/core/modeling/)
-- [EF Core - Loading Data](https://docs.microsoft.com/en-us/ef/core/querying/)
-- [EF Core - Loading Related Data](https://docs.microsoft.com/en-us/ef/core/querying/related-data/eager)
-- [EF Core - Saving Data](https://docs.microsoft.com/en-us/ef/core/saving/basic)
-- [EF Core - Saving Related Data](https://docs.microsoft.com/en-us/ef/core/saving/related-data)
-- [EF Core - Deleting Data](https://docs.microsoft.com/en-us/ef/core/saving/cascade-delete)
-- [Fluent UI Grouped List](https://developer.microsoft.com/en-us/fluentui#/controls/web/groupedlist)
-- [Fluent UI Panel](https://developer.microsoft.com/en-us/fluentui#/controls/web/panel)
-- [React Router](https://reactrouter.com/web/guides/quick-start)
-
-## Bitne napomene
-
-- U frontend dijelu projekta pozivi web servisa se upućuju na `https://localhost:7037` URL.
-- Sve putanje do API endpointova dodane su u `ClientApp/src/setupProxy.js` datoteku u varijablu `context`.
+Citations:
+[1] https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-5.0&tabs=visual-studio-code
+[2] https://docs.microsoft.com/en-us
